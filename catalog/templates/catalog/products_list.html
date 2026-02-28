@@ -12,16 +12,21 @@
         <div class="card h-100">
             <div class="card-body text-center">
                 <h5 class="card-title">{{ product.name }}</h5>
+                {% if user.is_authenticated %}
                 <a href="{% url 'catalog:product_detail' product.id %}">
+                    {% endif %}
                     {% if product.image %}
-                    <img class="img-fluid mb-3" src="{{ product.image.url }}" alt="{{ product.name }}" style="max-height: 200px;">
+                    <img class="img-fluid mb-3" src="{{ product.image.url }}" alt="{{ product.name }}"
+                         style="max-height: 200px;">
                     {% endif %}
                 </a>
                 <p>{{ product.description|truncatechars:100 }}</p>
+                {% if user.is_authenticated %}
                 <li class="list-group-item">
                     <a href="{% url 'catalog:product_update' product.pk %}" class="btn btn-secondary">Редактировать</a>
                     <a href="{% url 'catalog:product_delete' product.pk %}" class="btn btn-danger">Удалить</a>
                 </li>
+                {% endif %}
             </div>
         </div>
     </div>

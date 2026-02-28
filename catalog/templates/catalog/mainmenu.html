@@ -9,18 +9,38 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/">Главная</a>
             </li>
+            {% if user.is_authenticated %}
             <li class="nav-item">
                 <a class="nav-link" href="/add_product/">Добавить продукт</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/admin/">Админка</a>
-            </li
+            </li>
+            {% endif %}
             <li class="nav-item">
                 <a class="nav-link" href="/contacts/">Контакты</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/blogs/">Блог</a>
             </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <span class="nav-link disabled">{{ user.email }}</span>
+            </li>
+            <li class="nav-item">
+                <form method="post" action="{% url 'users:logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="nav-link btn btn-link text-danger">Выход</button>
+                </form>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'users:login' %}">Вход</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'users:register' %}">Регистрация</a>
+            </li>
+            {% endif %}
         </ul>
     </div>
 </nav>
