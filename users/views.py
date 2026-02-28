@@ -1,13 +1,15 @@
 # views.py
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.core.mail import send_mail
 
-from django.views.generic.edit import CreateView
-from .forms import UserRegisterForm
+from django.views.generic.edit import CreateView, UpdateView
+from .forms import UserRegisterForm, User
 import os
 from dotenv import load_dotenv
 
 load_dotenv(override=True)
+
 
 class RegisterView(CreateView):
     template_name = 'users/register.html'
@@ -25,3 +27,13 @@ class RegisterView(CreateView):
         from_email = os.getenv('EMAIL_HOST_USER')
         recipient_list = [user_email]
         send_mail(subject, message, from_email, recipient_list)
+
+
+class ProfileUpdateView(LoginRequiredMixin, UpdateView):
+    model = User
+    form_class = UserRegisterForm
+    template_name = 'users/profile_edit.html'
+    success_url = reverse_lazy('products_list')
+
+    def get_object(self, queryset=None):
+        return self.request.user

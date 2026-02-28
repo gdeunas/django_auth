@@ -1,13 +1,15 @@
 # forms.py
-from django.contrib.auth.forms import UserCreationForm
-from catalog.forms import StyleFormMixin
-# from users.models import User
-from django.contrib.auth import get_user_model
-
-User = get_user_model()
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from .models import User
 
 
-class UserRegisterForm(UserCreationForm, StyleFormMixin):
+class UserRegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('email',)
+
+
+class UserProfileForm(UserChangeForm):
+    class Meta:
+        model = User
+        fields = ('avatar', 'phone_number', 'country')
