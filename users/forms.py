@@ -12,4 +12,4 @@ class UserRegisterForm(UserCreationForm):
 class UserProfileForm(UserChangeForm):
     class Meta:
         model = User
-        fields = ('avatar', 'phone_number', 'country')
+        fields = ('first_name', 'last_name','avatar', 'phone_number', 'country', )

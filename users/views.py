@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.core.mail import send_mail
 
 from django.views.generic.edit import CreateView, UpdateView
-from .forms import UserRegisterForm, User
+from .forms import UserRegisterForm, User, UserProfileForm
 import os
 from dotenv import load_dotenv
 
@@ -31,9 +31,9 @@ class RegisterView(CreateView):
 
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     model = User
-    form_class = UserRegisterForm
-    template_name = 'users/profile_edit.html'
-    success_url = reverse_lazy('products_list')
+    form_class = UserProfileForm
+    template_name = 'users/profile_form.html'
+    success_url = reverse_lazy('catalog:products_list')
 
     def get_object(self, queryset=None):
         return self.request.user
