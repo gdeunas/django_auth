@@ -1,5 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from django.forms import BooleanField
 
 from .models import Product
 
@@ -54,3 +55,6 @@ class ProductForm(forms.ModelForm):
         description = self.cleaned_data.get('description')
         self.validate_banned_words(description)
         return description
+
+
+
